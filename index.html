@@ -1,123 +1,104 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Homepage</title>
-  <style>
-    body {
-      background-color: black;
-      color: white;
-      font-family: 'Courier New', Courier, monospace;
-      margin: 0;
-      padding: 0;
-      font-size: 1.5vw;
-    }
-
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      padding: 0 20px;
-    }
-
-    .search-bar {
-      width: 100%;
-      max-width: 400px;
-      height: 40px;
-      padding: 10px;
-      border: 2px solid #fdd3f5;
-      border-radius: 20px;
-      background-color: #000000;
-      box-shadow: 0 0 10px #110011;
-      outline: none;
-      color: white;
-      font-family: 'Courier New', Courier, monospace;
-      transition: box-shadow 0.3s ease-in-out;
-      margin: 0 auto;
-    }
-
-    .toggle-switch {
+   <head>
+      <title>Homepage</title>
+      <style>
+         body {
+         background-color: black;
+         color: white;
+         font-family: 'Courier New', Courier, monospace;
+         margin: 0;
+         padding: 0;
+         }
+         .container {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         justify-content: center;
+         height: 100vh;
+         }
+         .search-bar {
+         width: 400px;
+         height: 40px;
+         padding: 10px;
+         border: 2px solid #fdd3f5;
+         border-radius: 20px;
+         background-color: #000000;
+         box-shadow: 0 0 10px #110011;
+         outline: none;
+         color: white;
+         font-family: 'Courier New', Courier, monospace;
+         font-size: 16px;
+         transition: box-shadow 0.3s ease-in-out;
+         }
+         .search-bar:focus {
+         box-shadow: 0 0 20px #900bc3;
+	box-shadow: 0 0 -5px #900bc3;
+         }
+         .toggle-switch {
+         position: absolute;
+         top: 20px;
+         right: 20px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         color: white;
+         }
+         .toggle-switch input[type="checkbox"] {
+         display: none;
+         }
+         .toggle-switch label {
+         display: block;
+         width: 40px;
+         height: 20px;
+         background-color: #e05d79;
+         border-radius: 10px;
+         position: relative;
+         cursor: pointer;
+         transition: background-color 0.3s ease-in-out;
+         }
+         .toggle-switch label::after {
+         content: "";
+         position: absolute;
+         width: 18px;
+         height: 18px;
+         border-radius: 50%;
+         background-color: white;
+         top: 1px;
+         left: 1px;
+         transition: left 0.3s ease-in-out;
+         }
+         .toggle-switch input[type="checkbox"]:checked + label {
+         background-color: #027bfc;
+         }
+         .toggle-switch input[type="checkbox"]:checked + label::after {
+         left: 21px;
+         }
+          .button-container {
       position: absolute;
       top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-    }
+   }
+         .button {
+         padding: 10px 20px;
+         margin: 0 10px;
+         border: 2px solid #530182;
+         border-radius: 20px;
+         background-color: transparent;
+         color: white;
+         font-family: 'Courier New', Courier, monospace;
+         font-size: 16px;
+         cursor: pointer;
+         transition: background-color 0.3s ease-in-out;
+         text-decoration: none;
+         }
+         .button:hover {
+         background-color: #ffd2ff;
+         color: black;
+         }
 
-    .toggle-switch input[type="checkbox"] {
-      display: none;
-    }
-
-    .toggle-switch label {
-      display: block;
-      width: 40px;
-      height: 20px;
-      background-color: #e05d79;
-      border-radius: 10px;
-      position: relative;
-      cursor: pointer;
-      transition: background-color 0.3s ease-in-out;
-    }
-
-    .toggle-switch label::after {
-      content: "";
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background-color: white;
-      top: 1px;
-      left: 1px;
-      transition: left 0.3s ease-in-out;
-    }
-
-    .toggle-switch input[type="checkbox"]:checked + label {
-      background-color: #027bfc;
-    }
-
-    .toggle-switch input[type="checkbox"]:checked + label::after {
-      left: 21px;
-    }
-
-    .button-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      margin-top: 40px;
-    }
-
-    .button {
-      padding: 10px 20px;
-      margin: 10px;
-      border: 2px solid #530182;
-      border-radius: 20px;
-      background-color: transparent;
-      color: white;
-      font-family: 'Courier New', Courier, monospace;
-      cursor: pointer;
-      transition: background-color 0.3s ease-in-out;
-      text-decoration: none;
-    }
-
-    .button:hover {
-      background-color: #ffd2ff;
-      color: black;
-    }
-
-    @media (max-width: 480px) {
-      .search-bar {
-        width: 100%;
-        max-width: 300px;
-      }
-    }
-  </style>
- <script>
-  window.addEventListener('DOMContentLoaded', () => {
+      </style>
+      <script>
+         window.addEventListener('DOMContentLoaded', () => {
              const toggleSwitch = document.getElementById('search-toggle');
              const searchBar = document.getElementById('search-bar');
          
@@ -127,13 +108,13 @@
          
              toggleSwitch.addEventListener('change', () => {
                  if (toggleSwitch.checked) {
-                     searchBar.placeholder = 'Search Google...';
-                     searchBar.removeEventListener('keydown', searchBing);
-                     searchBar.addEventListener('keydown', searchGoogle);
-                 } else {
                      searchBar.placeholder = 'Search Bing...';
                      searchBar.removeEventListener('keydown', searchGoogle);
                      searchBar.addEventListener('keydown', searchBing);
+                 } else {
+                     searchBar.placeholder = 'Search Google...';
+                     searchBar.removeEventListener('keydown', searchBing);
+                     searchBar.addEventListener('keydown', searchGoogle);
                  }
              });
          
@@ -151,27 +132,26 @@
                  }
              }
          });
-</script>
-
-</head>
-<body>
-  <div class="toggle-switch">
-    <span>Bing</span>
-    <input type="checkbox" id="search-toggle" checked>
-    <label for="search-toggle"></label>
-    <span>Google</span>
-  </div>
-  <div class="container">
-    <input type="text" class="search-bar" id="search-bar" placeholder="Search Bing...">
-    <div class="button-container">
-      <a href="https://chat.openai.com" target="_blank" class="button">ChatGPT</a>
-      <a href="https://bing.com/chat" target="_blank" class="button">Bing AI</a>
-      <a href="https://bard.google.com" target="_blank" class="button">Bard</a>
-      <a href="https://youtube.com" target="_blank" class="button">YouTube</a>
-      <a href="https://web.telegram.org/a/" target="_blank" class="button">Telegram</a>
-      <a href="https://instagram.com" target="_blank" class="button">Instagram</a>
-      <a href="https://news.google.com" target="_blank" class="button">Google News</a>
-    </div>
-  </div>
-</body>
+      </script>
+   </head>
+   <body>
+      <div class="toggle-switch">
+         <span>Bing</span>
+         <input type="checkbox" id="search-toggle">
+         <label for="search-toggle"></label>
+         <span>Google</span>
+      </div>
+      <div class="container">
+         <input type="text" class="search-bar" id="search-bar" placeholder="Search Bing...">
+         <div class="button-container">
+            <a href="https://chat.openai.com" target="_blank" class="button">ChatGPT</a>
+   <a href="https://bing.com/chat" target="_blank" class="button">Bing AI</a>
+   <a href="https://bard.google.com" target="_blank" class="button">Bard</a>
+   <a href="https://youtube.com" target="_blank" class="button">YouTube</a>
+   <a href="https://web.telegram.org/a/" target="_blank" class="button">Telegram</a>
+   <a href="https://instagram.com" target="_blank" class="button">Instagram</a>
+   <a href="https://news.google.com" target="_black" class="button">Google news</a>
+         </div>
+      </div>
+   </body>
 </html>
