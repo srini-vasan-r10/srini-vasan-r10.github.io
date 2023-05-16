@@ -98,41 +98,44 @@
 
       </style>
       <script>
-         window.addEventListener('DOMContentLoaded', () => {
-             const toggleSwitch = document.getElementById('search-toggle');
-             const searchBar = document.getElementById('search-bar');
-         
-             searchBar.placeholder = 'Search Bing...';
-             searchBar.removeEventListener('keydown', searchGoogle);
-             searchBar.addEventListener('keydown', searchBing);
-         
-             toggleSwitch.addEventListener('change', () => {
-                 if (toggleSwitch.checked) {
-                     searchBar.placeholder = 'Search Bing...';
-                     searchBar.removeEventListener('keydown', searchGoogle);
-                     searchBar.addEventListener('keydown', searchBing);
-                 } else {
-                     searchBar.placeholder = 'Search Google...';
-                     searchBar.removeEventListener('keydown', searchBing);
-                     searchBar.addEventListener('keydown', searchGoogle);
-                 }
-             });
-         
-             function searchGoogle(event) {
-                 if (event.key === 'Enter') {
-                     const query = event.target.value;
-                     window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
-                 }
-             }
-         
-             function searchBing(event) {
-                 if (event.key === 'Enter') {
-                     const query = event.target.value;
-                     window.location.href = `https://www.bing.com/search?q=${encodeURIComponent(query)}`;
-                 }
-             }
-         });
-      </script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const toggleSwitch = document.getElementById('search-toggle');
+    const searchBar = document.getElementById('search-bar');
+
+    searchBar.placeholder = 'Search Bing...';
+    searchBar.removeEventListener('keydown', searchGoogle);
+    searchBar.addEventListener('keydown', searchBing);
+
+    toggleSwitch.checked = false;
+
+    toggleSwitch.addEventListener('change', () => {
+      if (toggleSwitch.checked) {
+        searchBar.placeholder = 'Search Google...';
+        searchBar.removeEventListener('keydown', searchBing);
+        searchBar.addEventListener('keydown', searchGoogle);
+      } else {
+        searchBar.placeholder = 'Search Bing...';
+        searchBar.removeEventListener('keydown', searchGoogle);
+        searchBar.addEventListener('keydown', searchBing);
+      }
+    });
+
+    function searchGoogle(event) {
+      if (event.key === 'Enter') {
+        const query = event.target.value;
+        window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+      }
+    }
+
+    function searchBing(event) {
+      if (event.key === 'Enter') {
+        const query = event.target.value;
+        window.location.href = `https://www.bing.com/search?q=${encodeURIComponent(query)}`;
+      }
+    }
+  });
+</script>
+
    </head>
    <body>
       <div class="toggle-switch">
