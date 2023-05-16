@@ -1,4 +1,115 @@
-radio-bing" name="search-engine" checked>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Homepage</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: 'Courier New', Courier, monospace;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .search-bar {
+      width: 400px;
+      height: 40px;
+      padding: 10px;
+      border: 2px solid #fdd3f5;
+      border-radius: 20px;
+      background-color: #000000;
+      box-shadow: 0 0 10px #110011;
+      outline: none;
+      color: white;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 16px;
+      transition: box-shadow 0.3s ease-in-out;
+    }
+    .search-bar:focus {
+      box-shadow: 0 0 20px #900bc3;
+      box-shadow: 0 0 -5px #900bc3;
+    }
+    .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .button {
+      padding: 10px 20px;
+      margin: 5px;
+      border: 2px solid #530182;
+      border-radius: 20px;
+      background-color: transparent;
+      color: white;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+      text-decoration: none;
+    }
+    .button:hover {
+      background-color: #ffd2ff;
+      color: black;
+    }
+    .radio-group {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .radio-group label {
+      margin-right: 10px;
+    }
+  </style>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const radioBing = document.getElementById('radio-bing');
+      const radioGoogle = document.getElementById('radio-google');
+      const searchBar = document.getElementById('search-bar');
+      
+      searchBar.placeholder = 'Search Bing...';
+      searchBar.removeEventListener('keydown', searchGoogle);
+      searchBar.addEventListener('keydown', searchBing);
+
+      radioBing.addEventListener('change', () => {
+        searchBar.placeholder = 'Search Bing...';
+        searchBar.removeEventListener('keydown', searchGoogle);
+        searchBar.addEventListener('keydown', searchBing);
+      });
+
+      radioGoogle.addEventListener('change', () => {
+        searchBar.placeholder = 'Search Google...';
+        searchBar.removeEventListener('keydown', searchBing);
+        searchBar.addEventListener('keydown', searchGoogle);
+      });
+
+      function searchGoogle(event) {
+        if (event.key === 'Enter') {
+          const query = event.target.value;
+          window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+        }
+      }
+
+      function searchBing(event) {
+        if (event.key === 'Enter') {
+          const query = event.target.value;
+          window.location.href = `https://www.bing.com/search?q=${encodeURIComponent(query)}`;
+        }
+      }
+    });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="radio-group">
+      <input type="radio" id="radio-bing" name="search-engine" checked>
       <label for="radio-bing">Bing</label>
       <input type="radio" id="radio-google" name="search-engine">
       <label for="radio-google">Google</label>
