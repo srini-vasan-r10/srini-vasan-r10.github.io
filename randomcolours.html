@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Random Color Strips</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #000;
+    }
+
+    .color-strip {
+      display: inline-block;
+      width: calc(50% - 20px);
+      height: 100px;
+      margin: 10px;
+      cursor: pointer;
+      color: #000;
+      text-align: center;
+      line-height: 100px;
+      font-family: Arial, sans-serif;
+      transition: box-shadow 0.3s;
+    }
+
+    .color-strip.dark {
+      color: #fff;
+    }
+
+    .color-strip:hover {
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5), 0 10px 25px rgba(0, 0, 0, 0.5), 0 16px 40px rgba(0, 0, 0, 0.5), 0 24px 60px rgba(0, 0, 0, 0.5), 0 36px 90px rgba(0, 0, 0, 0.5);
+    }
+
+    @media screen and (min-width: 768px) {
+      .color-strip {
+        width: calc(25% - 20px);
+      }
+    }
+  </style>
+  <script>
+    function generateColor() {
+      var letters = '0123456789ABCDEF';
+      var color = '#';
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    function generateColorStrips() {
+      var colorStripsContainer = document.getElementById('color-strips-container');
+      colorStripsContainer.innerHTML = '';
+
+      for (var i = 0; i < 12; i++) {
+        var color = generateColor();
+        var colorStrip = document.createElement('div');
+        colorStrip.classList.add('color-strip');
+        colorStrip.style.backgroundColor = color;
+        colorStrip.innerHTML = color;
+
+        if (isColorDark(color)) {
+          colorStrip.classList.add('dark');
+        }
+
+        colorStrip.addEventListener('click', function() {
+          copyToClipboard(this.innerHTML);
+        });
+
+        colorStrip.addEventListener('mouseenter', function() {
+          var shadowColor = generateColor();
+          this.style.boxShadow = `0 6px 12px rgba(0, 0, 0, 0.5), 0 10px 25px rgba(0, 0, 0, 0.5), 0 16px 40px rgba(0, 0, 0, 0.5), 0 24px 60px rgba(0, 0, 0, 0.5), 0 36px 90px rgba(0, 0, 0, 0.5), 0 0 0 10px ${shadowColor}`;
+        });
+
+        colorStrip.addEventListener('mouseleave', function() {
+          this.style.boxShadow = 'none';
+        });
+
+        colorStripsContainer.appendChild(colorStrip);
+      }
+    }
+
+    function isColorDark(color) {
+      var hex = color.replace('#', '');
+      var r = parseInt(hex.substr(0, 2), 16);
+      var g = parseInt(hex.substr(2, 2), 16);
+      var b = parseInt(hex.substr(4, 2), 16);
+      var brightness = (r * 299 + g * 587 + b * 114) / 1000;
+      return brightness < 128;
+    }
+
+    function copyToClipboard(text) {
+      var textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      alert('Copied to clipboard: ' + text);
+    }
+
+    window.onload = function() {
+      generateColorStrips();
+    };
+  </script>
+</head>
+<body>
+  <div id="color-strips-container"></div>
+</body>
+</html>
