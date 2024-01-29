@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>YouTube Search</title>
+</head>
+<body>
+  <h1>Search YouTube</h1>
+  <form>
+    <input type="search" id="search-term" placeholder="Enter your search term">
+    <button onclick="searchYouTube()">Youtube Search</button>
+	 <button onclick="searchGoogle()">Google it</button>
+	 <button onclick="searchBing()">Bing it</button>
+  </form>
+
+  <script>
+    function searchYouTube() {
+      const searchTerm = document.getElementById("search-term").value;
+      const url = `https://www.youtube.com/results?search_query=${encodeURIComponent(searchTerm)}`;
+      window.open(url, "_blank");
+    }
+	 function searchGoogle() {
+      const searchTerm = document.getElementById("search-term").value;
+      let url = `https://www.google.com/search?q=${encodeURIComponent(searchTerm)}`;
+
+      // Add syntax options based on user input
+      const selectedSyntax = document.querySelectorAll('input[name="syntax"]:checked');
+      for (const option of selectedSyntax) {
+        switch (option.value) {
+          case "exact":
+            url += `&oq="${searchTerm}"`;
+            break;
+          case "related":
+            url += `&related:${searchTerm}`;
+            break;
+          case "filetype":
+            url += `&filetype:${searchTerm}`;
+            break;
+        }
+      }
+
+      window.open(url, "_blank");
+    }
+	  function searchBing() {
+      const searchTerm = document.getElementById("search-term").value;
+      let url = `https://www.bing.com/search?q=${encodeURIComponent(searchTerm)}`;
+
+      // Add syntax options based on user input
+      const selectedSyntax = document.querySelectorAll('input[name="syntax"]:checked');
+      for (const option of selectedSyntax) {
+        switch (option.value) {
+          case "exact":
+            url += `&oq="${searchTerm}"`;
+            break;
+          case "related":
+            url += `&related:${searchTerm}`;
+            break;
+          case "filetype":
+            url += `&filetype:${searchTerm}`;
+            break;
+        }
+      }
+
+      window.open(url, "_blank");
+    }
+  </script>
+</body>
+</html>
